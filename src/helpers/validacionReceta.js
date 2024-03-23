@@ -11,13 +11,25 @@ const validacionReceta = [
     .notEmpty()
     .withMessage("La URL de la imagen es un dato obligatorio")
     .matches(/^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)$/)
-    .withMessage("Debe ingresar una URL válida con una imagen en formato (jpg | jpeg | gif | png)"),
+    .withMessage(
+      "Debe ingresar una URL válida con una imagen en formato (jpg | jpeg | gif | png)"
+    ),
   check("descripcion")
     .notEmpty()
     .withMessage("La descripción es un dato obligatorio")
     .isLength({ min: 10, max: 200 })
     .withMessage("La descripción debe tener entre 10 y 200 caracteres"),
-  check("receta")
+  check("ingredientes")
+    .isArray({ min: 1 })
+    .withMessage("Debe ingresar al menos un ingrediente")
+    .custom((value) => {
+      if (!value.every((ingrediente) => typeof ingrediente === "string")) {
+        throw new Error("Los ingredientes deben ser cadenas de texto");
+      }
+      return true;
+    })
+    .withMessage("Los ingredientes deben ser cadenas de texto"),
+  check("recetaTexto")
     .notEmpty()
     .withMessage("La receta es un dato obligatorio")
     .isLength({ min: 30, max: 200 })
