@@ -49,7 +49,7 @@ export const editarReceta = async (req, res) => {
   }
 };
 
-export const eliminarReceta = async (req, res) => {
+export const borrarReceta = async (req, res) => {
   try {
     const recetaBuscada = await Receta.findById(req.params.id);
     if (!recetaBuscada) {
