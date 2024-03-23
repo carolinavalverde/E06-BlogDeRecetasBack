@@ -28,7 +28,11 @@ const recetaSchema = new Schema({
     minLength: 10,
     maxLength: 200,
   },
-  receta: {
+  ingredientes: {
+    type: [String],
+    required: true,
+  },
+  recetaTexto: {
     type: String,
     required: true,
     minLength: 30,
